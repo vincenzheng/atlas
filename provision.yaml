@@ -1,0 +1,22 @@
+- hosts: svt101cli
+  user: admin
+  connection: local
+  vars:
+    cli:
+      host: 10.228.17.101
+      username: admin
+      password: admin
+      port: 2024
+      transport: cli
+
+  tasks:
+    - name: collect all facts from the device
+      vyos_command:
+          commands:
+            - show system
+          provider: "{{ cli }}"
+    - name: configure system name
+      vyos_config:
+          lines:
+            - system name SVT_101
+          provider: "{{ cli }}"
